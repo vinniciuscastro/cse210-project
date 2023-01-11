@@ -9,28 +9,37 @@ class Program
 
         string valueInText = prompt;
         int grade = int.Parse(valueInText);
-
-        Console.WriteLine("");
+        string final = "";
+        
 
         if (grade > 89) {
-            Console.WriteLine("You got an A congrats");
+            final = "A";
         }
 
         else if (grade > 79) {
-            Console.WriteLine("You got a B great job");
+            final = "B";
         }
 
         else if (grade > 69) {
-            Console.WriteLine("You got a C");
+            final = "C";
         }
 
         else if (grade > 59) {
-            Console.WriteLine("You got a D you failed the class");
+            final = "D";
         }
-        else if (grade < 60) {
-            Console.WriteLine("You got a F you failed the class");
+        else {
+            final = "F";
         }
-
+        Console.WriteLine($"Your grade is: {final}");
+        
+          if (grade >= 70)
+        {
+            Console.WriteLine("You passed!");
+        }
+        else
+        {
+            Console.WriteLine("Better luck next time!");
+        }
         
 
 
