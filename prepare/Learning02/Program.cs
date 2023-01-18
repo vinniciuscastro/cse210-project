@@ -41,11 +41,11 @@ class Program
 
         // person01.displayResume();
         // job01.displayJobs();
-        Console.WriteLine("----------------------------------");
+        
         // person02.displayResume();
         // job02.displayJobs();
 
-
+        person01.displayResume();
     }
 }
 
@@ -66,6 +66,7 @@ class Resume {
 
     public void displayResume() {
         Console.WriteLine($"Name: {_name}");
+        Console.WriteLine("Jobs:");
 
         foreach (Job job in _job) {
             job.displayJobs();
@@ -83,7 +84,7 @@ class Job {
     public int _endYear; 
 
     public void displayJobs() {
-        Console.WriteLine("Jobs:");
+        
         Console.WriteLine($"{_jobTitle} ({_company}) {_startYear}-{_endYear}");
     }
 
