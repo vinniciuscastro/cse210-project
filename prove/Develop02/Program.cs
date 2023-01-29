@@ -4,13 +4,17 @@ class Program
 {
     static void Main(string[] args)
     {
-        Console.WriteLine("Hello Develop02 World!");
+        Menu startEnd = new Menu();
+        startEnd.Run();
+        
+
     }
 }
 
 class Journal 
 {
   public List<Entry> main_list = new List<Entry> {};
+
 
   public void Save() {
     string fileName;
@@ -19,12 +23,9 @@ class Journal
 
     using (StreamWriter outputFile = new StreamWriter(fileName))
 {
-    // You can add text to the file with the WriteLine method
-    outputFile.WriteLine("This will be the first line in the file.");
     
-    // You can use the $ and include variables just like with Console.WriteLine
-    string color = "Blue";
-    outputFile.WriteLine($"My favorite color is {color}");
+    outputFile.WriteLine(main_list);
+    
 }
   }
   public void Load() {
@@ -41,17 +42,35 @@ class Journal
         string lastName = parts[1];
     }
   }
+  public void AddEntry() {
+    Entry info = new Entry();
+    //I have no idea how to make this class work. 
+    //I can't think of an work around. 
+    string input;
+    Console.Write("> ");
+    input = Console.ReadLine();
+                // I have no idea how to add the inputs I gave my best try
+    info.content = input;
+    main_list.Add(info);
+
+   
+  }
+
+    internal void AddEntry(string input)
+    {
+        throw new NotImplementedException();
+    }
 }
 class Entry 
 {
     public string timestamp;
     public string content;
-    public string prompt;
+    public string _prompt;
 
     public void Display() {
     DateTime timestamp = DateTime.Now;
     string data = timestamp.ToShortDateString();
-        Console.WriteLine($"Date: {data} - Prompt: {prompt}");
+        Console.WriteLine($"Date: {data} - Prompt: {_prompt}");
         Console.WriteLine(content);
     }
 
@@ -68,12 +87,15 @@ class Menu
         prompts.Add("What are you emotions teaching you?");
         prompts.Add("Who do you help today, and how it felt?");
         prompts.Add("Who was the most interesting person you interacted with today?");
+        prompts.Add("How did I see the hand of the Lord in my life today?");
+        prompts.Add("What was the strongest emotion I felt today?");
     }
     public void Run() {
         bool loop = true; 
-
+        Journal myJournal = new Journal();
+        Entry info = new Entry();
         while (loop) {
-            Console.WriteLine("Please select onw of the following choices:");
+            Console.WriteLine("Please select one of the following choices:");
             Console.WriteLine("1. Write");
             Console.WriteLine("2. Display");
             Console.WriteLine("3. Load");
@@ -89,18 +111,31 @@ class Menu
                 Menu menu = new Menu();
                 Random random = new Random();
                 int promptMessage = random.Next(prompts.Count);
-                Console.WriteLine(prompts[promptMessage]);
-                Console.Write("What was your grade? ");
-                string input = Console.ReadLine();
+                string prompts_ = prompts[promptMessage];
+                Console.WriteLine(prompts_);
+                info._prompt = prompts_;
+                myJournal.main_list.Add(info);
+                myJournal.AddEntry();
+
+                
+
+                
+                
+                
             }
             else if (prompt == 2) {
+                Entry content = new Entry();
+                content.Display(); 
 
             }
             else if (prompt == 3) {
+                Journal loadFile = new Journal();
+                loadFile.Load();
 
             }
             else if (prompt == 4) {
-
+                Journal save = new Journal();
+                save.Save();
             }
             else {
                 Console.WriteLine("Choice not valid, please try again.");
