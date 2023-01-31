@@ -6,7 +6,7 @@ class Program
     {
         Menu startEnd = new Menu();
         startEnd.Run();
-        
+
 
     }
 }
@@ -23,9 +23,12 @@ class Journal
 
     using (StreamWriter outputFile = new StreamWriter(fileName))
 {
+    foreach (var entry in main_list) {
+        string line = $"{entry.timestamp}@{entry.content}@{entry._prompt}";
+        outputFile.WriteLine(line);
+    }
     
-    outputFile.WriteLine(main_list);
-    
+
 }
   }
   public void Load() {
@@ -33,33 +36,44 @@ class Journal
     Console.Write("What is the filename? ");
     filename = Console.ReadLine() ??""; 
     string[] lines = System.IO.File.ReadAllLines(filename);
-
+    Entry info = new Entry();
+    List<Entry> load_list = new List<Entry> {};
     foreach (string line in lines)
     {
-        string[] parts = line.Split(",");
+        string[] parts = line.Split("@");
 
-        string firstName = parts[0];
-        string lastName = parts[1];
+        info.timestamp = parts[0];
+        info.content = parts[1];
+        info._prompt = parts[2];
+        load_list.Add(info);
+        info.Display();
+
     }
   }
-  public void AddEntry() {
+  public void AddEntry(String prompt) {
     Entry info = new Entry();
-    //I have no idea how to make this class work. 
+    //I have no idea how to make this function work. 
     //I can't think of an work around. 
     string input;
+    
     Console.Write("> ");
     input = Console.ReadLine();
                 // I have no idea how to add the inputs I gave my best try
     info.content = input;
     main_list.Add(info);
+    info._prompt = prompt;
+    DateTime timestamp = DateTime.Now;
+    string data = timestamp.ToShortDateString();
+    info.timestamp = data;
+    
+    
 
-   
+
+
+
   }
 
-    internal void AddEntry(string input)
-    {
-        throw new NotImplementedException();
-    }
+   
 }
 class Entry 
 {
@@ -68,9 +82,7 @@ class Entry
     public string _prompt;
 
     public void Display() {
-    DateTime timestamp = DateTime.Now;
-    string data = timestamp.ToShortDateString();
-        Console.WriteLine($"Date: {data} - Prompt: {_prompt}");
+        Console.WriteLine($"Date: {timestamp} - Prompt: {_prompt}");
         Console.WriteLine(content);
     }
 
@@ -84,7 +96,7 @@ class Menu
         prompts.Add("How are you feeling today?");
         prompts.Add("What was the best part of your day?");
         prompts.Add("If you had one thing you could do better today, what would it be?");
-        prompts.Add("What are you emotions teaching you?");
+        prompts.Add("What are your emotions teaching you?");
         prompts.Add("Who do you help today, and how it felt?");
         prompts.Add("Who was the most interesting person you interacted with today?");
         prompts.Add("How did I see the hand of the Lord in my life today?");
@@ -93,7 +105,7 @@ class Menu
     public void Run() {
         bool loop = true; 
         Journal myJournal = new Journal();
-        Entry info = new Entry();
+        
         while (loop) {
             Console.WriteLine("Please select one of the following choices:");
             Console.WriteLine("1. Write");
@@ -108,34 +120,24 @@ class Menu
                 loop = false;  
             }
             else if (prompt == 1) {
-                Menu menu = new Menu();
                 Random random = new Random();
                 int promptMessage = random.Next(prompts.Count);
                 string prompts_ = prompts[promptMessage];
                 Console.WriteLine(prompts_);
-                info._prompt = prompts_;
-                myJournal.main_list.Add(info);
-                myJournal.AddEntry();
-
-                
-
-                
-                
-                
+                myJournal.AddEntry(prompts_);
             }
             else if (prompt == 2) {
-                Entry content = new Entry();
-                content.Display(); 
+                foreach (var entry in myJournal.main_list) {
+                    entry.Display();
+                }
 
             }
-            else if (prompt == 3) {
-                Journal loadFile = new Journal();
-                loadFile.Load();
+            else if (prompt == 3) {  
+                myJournal.Load();
 
             }
             else if (prompt == 4) {
-                Journal save = new Journal();
-                save.Save();
+                myJournal.Save();
             }
             else {
                 Console.WriteLine("Choice not valid, please try again.");
@@ -143,3 +145,4 @@ class Menu
         }
     }
 }
+
