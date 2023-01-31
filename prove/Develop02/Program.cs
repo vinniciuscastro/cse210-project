@@ -37,7 +37,7 @@ class Journal
     filename = Console.ReadLine() ??""; 
     string[] lines = System.IO.File.ReadAllLines(filename);
     Entry info = new Entry();
-    List<Entry> load_list = new List<Entry> {};
+    main_list.Clear();
     foreach (string line in lines)
     {
         string[] parts = line.Split("@");
@@ -45,8 +45,8 @@ class Journal
         info.timestamp = parts[0];
         info.content = parts[1];
         info._prompt = parts[2];
-        load_list.Add(info);
-        info.Display();
+        main_list.Add(info);
+        
 
     }
   }
