@@ -36,12 +36,12 @@ class Journal
     Console.Write("What is the filename? ");
     filename = Console.ReadLine() ??""; 
     string[] lines = System.IO.File.ReadAllLines(filename);
-    Entry info = new Entry();
+    
     main_list.Clear();
     foreach (string line in lines)
     {
         string[] parts = line.Split("@");
-
+        Entry info = new Entry();
         info.timestamp = parts[0];
         info.content = parts[1];
         info._prompt = parts[2];
