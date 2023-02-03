@@ -105,6 +105,9 @@ class Menu
     public void Run() {
         bool loop = true; 
         Journal myJournal = new Journal();
+        string name;
+        Console.Write("What is your name? ");
+        name = Console.ReadLine() ??""; 
         
         while (loop) {
             Console.WriteLine("Please select one of the following choices:");
@@ -127,6 +130,9 @@ class Menu
                 myJournal.AddEntry(prompts_);
             }
             else if (prompt == 2) {
+                Console.WriteLine($"{name}, look what you have been writing:");
+                Console.WriteLine("");
+                Console.WriteLine("");
                 foreach (var entry in myJournal.main_list) {
                     entry.Display();
                 }
