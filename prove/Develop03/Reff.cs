@@ -25,7 +25,7 @@ class Reff {
         return _startVerse;
     }
     public void GetDisplay() {
-        Console.WriteLine($"{_book} {_chapter}: {_startVerse} {_endVerse}");
+        Console.WriteLine($"{_book} {_chapter}: {_startVerse}" + (_endVerse != null ? $"-{_endVerse}" : ""));
 
     }
 }

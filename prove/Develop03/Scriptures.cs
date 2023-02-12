@@ -21,5 +21,4 @@ class Scriptures {
     public void Display() {
         
     }
-
 }

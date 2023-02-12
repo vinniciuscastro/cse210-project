@@ -6,14 +6,15 @@ class Word {
     private bool _isHidden;
 
     public Word(string text) {
-
+        _text = text;
     }
 
     public void Hide() {
+        _isHidden = true;
 
     }
 
-    public void GetDisplay() {
-
+    public string GetDisplay() {
+        return _isHidden ? "***" : _text;
     }
 }
