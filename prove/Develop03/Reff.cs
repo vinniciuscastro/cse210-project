@@ -7,10 +7,15 @@ class Reff {
     private int _startVerse;
     private int? _endVerse; 
     public Reff(string book, int chapter, int start) {
-        
+        _book = book;
+        _chapter = chapter;
+        _startVerse = start;
     }
     public Reff(string book, int chapter, int start, int end) {
-        
+        _book = book;
+        _chapter = chapter;
+        _startVerse = start;
+        _endVerse = end;
     }
     public string getBook() {
         return _book;
@@ -25,7 +30,7 @@ class Reff {
         return _startVerse;
     }
     public void GetDisplay() {
-        Console.WriteLine($"{_book} {_chapter}: {_startVerse}" + (_endVerse != null ? $"-{_endVerse}" : ""));
+        Console.Write($"{_book} {_chapter}: {_startVerse}" + (_endVerse != null ? $"-{_endVerse}" : ""));
 
     }
 }
