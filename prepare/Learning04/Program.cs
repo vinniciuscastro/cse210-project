@@ -4,6 +4,10 @@ class Program
 {
     static void Main(string[] args)
     {
-        Console.WriteLine("Hello Learning04 World!");
+        Assignment student1 = new Assignment("Vinnicius Castro", "Macbeth");
+        Writing assignment = new Writing("Vinnicius Castro", "Macbeth","Freytag's Triangle applied to Macbeth");
+        Console.WriteLine($"{student1.GetSummary()}");
+        Console.WriteLine($"{assignment.GetWritingInfo()}");
     }
 }
+
