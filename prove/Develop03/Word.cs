@@ -15,6 +15,12 @@ class Word {
     }
 
     public string GetDisplay() {
-        return _isHidden ? "***" : _text;
-    }
+        string underscore = "_";
+         if (_isHidden) {      
+            return underscore;   
+        } 
+        else {
+            return _text;   
+        }
+        }
 }

@@ -13,7 +13,9 @@ class Scriptures {
         }
     }
     public void HideWords(int count) {
-        
+        foreach (var word in _word) {
+            
+        }
     }
 
     // public bool IsCompletelyHidden() {
