@@ -19,17 +19,28 @@ class Program
             }
             else if (prompt == 1){
                 Console.Clear();
-                Breathing activity1 = new Breathing("Welcome to the Breathing Activity", "Well done!!", "This activity will help you relax by walking your through breathing in and out slowly. Clear your mind and focus on your breathing." ,8, 4);
+                Breathing activity1 = new Breathing("Well done!!", "This activity will help you relax by walking your through breathing in and out slowly. Clear your mind and focus on your breathing.", 1 ,8, 4);
                 Console.WriteLine($"{activity1.displaySummary()}");
                 Console.WriteLine("");
                 Console.Write("How long, in seconds, would you like for your session? "); 
                 int input = int.Parse(Console.ReadLine() ??"");
+                Console.Clear();
+                Console.WriteLine("Get Ready...");
                 activity1.GetReady();
-                Console.WriteLine("");
-                // how can I set the duration for this? 
-                activity1.DisplayBreathIn();
-                activity1.DisplayBreathOut();
+                DateTime startTime = DateTime.Now;
+                DateTime futureTime = startTime.AddSeconds(input);     
 
+                DateTime current = DateTime.Now;
+                while (current < futureTime) 
+                {
+                    Console.WriteLine("");
+                    activity1.DisplayBreathIn();
+                    activity1.DisplayBreathOut();
+                    Console.WriteLine("");
+                    current = DateTime.Now;
+                }
+                activity1.displayEnd(input);
+                
             }
 
         }
@@ -44,10 +55,10 @@ class Activity {
     // don't know what to do with the duration
     protected int _duration;
 
-    protected Activity(string name, string end, string description) {
-        _name = name;
+    protected Activity( string end, string description, int duration) {
         _endMessage = end;
         _description = description;
+        _duration = duration;
         
     }
 
@@ -70,8 +81,7 @@ class Activity {
     //     _duration = duration;
     // }
     public void GetReady() {
-        Console.Clear();
-        Console.WriteLine("Get Ready...");
+        
         List<string> animations = new List<string>();
         animations.Add("|");
         animations.Add("/");
@@ -99,14 +109,17 @@ class Activity {
     }
 
     public string displaySummary() {
-        string summary = $"{_name} \n \n {_description}";
+        string summary = $"{_name} \n \n{_description}";
         return summary;
     }
 
-    public string displayEnd(int duration) {
+    public void displayEnd(int duration) {
         // how can I make the duration be set by the user input? 
-        string endMessage = $"{_endMessage} \n \n You have completed {_duration} seconds of Breathing Activity";
-        return endMessage;
+        Console.WriteLine("");
+        Console.WriteLine(_endMessage);
+        GetReady();
+        Console.WriteLine($"\nYou have completed {duration} seconds of Breathing Activity");
+        GetReady();
     }
 }
 
@@ -116,24 +129,28 @@ class Breathing: Activity {
 
 
 
-    public Breathing(string name, string end, string description, int breathIn, int breathOut): base(name, end, description) {
+    public Breathing(string end, string description,int duration, int breathIn, int breathOut): base(end, description, duration) {
+        _name = "Welcome to the Breathing Activity";
         _breathIn = breathIn;
         _breathOut = breathOut;
     }
 
     public void DisplayBreathIn() {
-        // how to display it on the same line? 
+        // how to display it on the same line?
+        Console.Write($"Breathe in...");
         for (int i = _breathIn; i > 0; i-- ) {
-            Console.WriteLine($"Breathe in...{i}");
+            
+            Console.Write(i);
             Thread.Sleep(1000);
             Console.Write("\b \b");
         }  
     }
 
     public void DisplayBreathOut() {
+        Console.Write($"\nNow breathe out...");
         for (int i = _breathOut; i > 0; i--) {
-            Console.Write($"Now breathe out...{i}");
-            Thread.Sleep(2000);
+            Console.Write(i);
+            Thread.Sleep(1000);
             Console.Write("\b \b");
         }  
     }
@@ -143,7 +160,7 @@ class Breathing: Activity {
 class Listening: Activity {
     private List<string> _prompts = new List<string>();
 
-    public Listening(string name, string end, string description): base(name, end, description){
+    public Listening(string end, string description, int duration): base(end,description, duration){
         _prompts.Add("Who are people that you appreciate?");
         _prompts.Add("What are personal strengths of yours?");
         _prompts.Add("Who are people that you have helped this week?");
@@ -159,7 +176,7 @@ class Reflection: Activity {
     private List<string> _questions = new List<string>();
 
 
-    public Reflection(string name, string end, string description): base(name, end, description) {
+    public Reflection(string end, string description, int duration): base(end, description , duration) {
         _prompts.Add("Think of a time when you stood up for someone else.");
         _prompts.Add("Think of a time when you did something really difficult.");
         _prompts.Add("Think of a time when you helped someone in need.");
