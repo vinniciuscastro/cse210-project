@@ -8,6 +8,7 @@ class Program
         string text = " Trust in the Lord with all thine heart; and lean not unto thine own understanding.";
         Scriptures scripture = new Scriptures(reference, text);
         string quit = "quit";
+        Console.Clear();
         scripture.Display();
             
             Console.WriteLine("");
@@ -19,6 +20,7 @@ class Program
             Console.Write("> ");
             input = Console.ReadLine() ??""; 
         while (input != quit) {
+            Console.Clear();
             scripture.Display();
             
             Console.WriteLine("");
@@ -29,7 +31,7 @@ class Program
             
             Console.Write("> ");
             input = Console.ReadLine() ??"";
-             
+            
         }
 
     }

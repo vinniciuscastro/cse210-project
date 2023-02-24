@@ -79,25 +79,25 @@ using System;
 //     }
 // }
 
-class Program {
-        static void Main(string[] args) {
-            var person = new Person();
-            var student = new Student();
+// class Program {
+//         static void Main(string[] args) {
+//             var person = new Person();
+//             var student = new Student();
 
-            Console.WriteLine(person.GetName());
-            Console.WriteLine(student.GetName());
+//             Console.WriteLine(person.GetName());
+//             Console.WriteLine(student.GetName());
 
-        }
-}
+//         }
+// }
 
-// parent class, super class, base class 
-class Person {
-    public string GetName() {
-        return "Vinnicius";
-    }
-}
+// // parent class, super class, base class 
+// class Person {
+//     public string GetName() {
+//         return "Vinnicius";
+//     }
+// }
 
-// child class or sub class
-class Student: Person {
+// // child class or sub class
+// class Student: Person {
 
-}
+// }

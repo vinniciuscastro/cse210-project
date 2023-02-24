@@ -15,12 +15,19 @@ class Word {
     }
 
     public string GetDisplay() {
+        
         string underscore = "_";
-         if (_isHidden) {      
-            return underscore;   
-        } 
-        else {
-            return _text;   
+        
+            if (_isHidden) {
+                foreach (var letter in _text) {
+                    return underscore;
+                    
+                }
+            } 
+            else {
+                
+                return _text;   
+            }
         }
-        }
-}
+      
+}       
