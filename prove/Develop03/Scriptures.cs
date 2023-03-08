@@ -1,7 +1,7 @@
 using System;
 
 class Scriptures {
-    private List<Word> _word = new List<Word> {};
+    private List<Word> _words = new List<Word> {};
     private Reff _reference; 
 
     public Scriptures(Reff reference,  string text) {
@@ -9,13 +9,16 @@ class Scriptures {
         var words = text.Split(" ");
         foreach(var w in words){ 
             var word = new Word(w);
-            _word.Add(word);
+            _words.Add(word);
         }
     }
     public void HideWords(int count) {
-        foreach (var word in _word) {
-            
-        }
+        int listLength = _words.Count;
+        Random random = new Random();
+        int index = random.Next(0, listLength -1);
+        _words[index].Hide();
+
+        
     }
 
     // public bool IsCompletelyHidden() {
@@ -25,7 +28,7 @@ class Scriptures {
     public void Display() {
         // string word = " ";
         _reference.GetDisplay();
-        foreach (var w in _word) {
+        foreach (var w in _words) {
             string text = w.GetDisplay();
             Console.Write($"{text} ");
         }

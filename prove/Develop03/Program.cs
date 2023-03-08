@@ -18,7 +18,8 @@ class Program
             Console.WriteLine("Press enter to continue or type 'quit' to finish:");
             string input;
             Console.Write("> ");
-            input = Console.ReadLine() ??""; 
+            input = Console.ReadLine() ??"";
+            scripture.HideWords(1); 
         while (input != quit) {
             Console.Clear();
             scripture.Display();
@@ -31,6 +32,7 @@ class Program
             
             Console.Write("> ");
             input = Console.ReadLine() ??"";
+            scripture.HideWords(1); 
             
         }
 

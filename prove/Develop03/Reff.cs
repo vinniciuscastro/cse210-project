@@ -17,18 +17,6 @@ class Reff {
         _startVerse = start;
         _endVerse = end;
     }
-    public string getBook() {
-        return _book;
-    }
-    public int getChapter(){
-        return _chapter;
-    }
-    public int getSVerse(){
-        return _startVerse;
-    }
-    public int getEVerse(){
-        return _startVerse;
-    }
     public void GetDisplay() {
         Console.Write($"{_book} {_chapter}: {_startVerse}" + (_endVerse != null ? $"-{_endVerse}" : ""));
 
