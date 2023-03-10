@@ -130,8 +130,8 @@ class Menu
                 myJournal.AddEntry(prompts_);
             }
             else if (prompt == 2) {
-                Console.WriteLine($"{name}, look what you have been writing:");
                 Console.WriteLine("");
+                Console.WriteLine($"{name}, look what you have been writing:");
                 Console.WriteLine("");
                 foreach (var entry in myJournal.main_list) {
                     entry.Display();
