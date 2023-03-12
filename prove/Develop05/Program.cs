@@ -122,13 +122,11 @@ class Program
                     int numb = 1;
                     foreach (var goal in _allGoals)
                     {
-
-
                         Console.Write($"     {numb}. ");
-                        Console.WriteLine(goal.Display());
+                        Console.WriteLine($"{goal.DisplayGoalName()}");
                         numb++;
-
                     }
+
                 }
             }
         }
@@ -241,6 +239,9 @@ class Goal {
         _complete = true;
         return _complete;
     }
+    virtual public string DisplayGoalName() {
+        return $"{_goal}";
+    }
 }
 
 class Simple : Goal
@@ -273,6 +274,11 @@ class Simple : Goal
         
         Console.Write("Which goal did you accomplish? ");
         int answer = int.Parse(Console.ReadLine() ?? "");
+        
+    }
+    public override string DisplayGoalName()
+    {
+        return base.DisplayGoalName();
     }
 
 }
@@ -301,6 +307,9 @@ class Eternal : Goal
             checkmark = "X";
         }
         return $"[{checkmark}] {_goal}@({_description})@{_points}";
+    }
+     public override string DisplayGoalName() {
+        return base.DisplayGoalName();
     }
 
 }
@@ -334,6 +343,10 @@ class Checklist : Goal {
             checkmark = "X";
         }
         return $"[{checkmark}]@{_goal}@({_description})@ ---Currently completed: {_accomplished}@/{_quantity}@{_points}@{_bonus}";
+    }
+     public override string DisplayGoalName()
+    {
+        return base.DisplayGoalName();
     }
 }
 
