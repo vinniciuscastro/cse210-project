@@ -126,7 +126,8 @@ class Program
                         Console.WriteLine($"{goal.DisplayGoalName()}");
                         numb++;
                     }
-
+                    Console.Write("Which goal did you accomplish? ");
+                    int goal_completed = int.Parse(Console.ReadLine() ?? "");
                 }
             }
         }
