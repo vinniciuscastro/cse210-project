@@ -1,14 +1,14 @@
+using System;
 using System.IO;
 
 class Program
 {
-    private static IEnumerable<Goal> _allGoals;
-
+    private static List<Goal> _allGoals = new List<Goal>();
+    private static int total_points = 0;
     static void Main(string[] args)
     {
 
-        List<Goal> _allGoals = new List<Goal>();
-        int total_points = 0;
+        
         bool loop = true;
         while (loop)
         {
@@ -74,7 +74,7 @@ class Program
                     int quantity = int.Parse(Console.ReadLine() ?? "");
                     Console.Write("What is the bonus for accomplishing it that many times? ");
                     int bonus = int.Parse(Console.ReadLine() ?? "");
-                    Checklist checklist = new Checklist(points, goal, describe, quantity, bonus);
+                    Checklist checklist = new Checklist(points, goal, describe, quantity, bonus, 0);
                     _allGoals.Add(checklist);
                 }
             }
@@ -127,7 +127,8 @@ class Program
                         numb++;
                     }
                     Console.Write("Which goal did you accomplish? ");
-                    int goal_completed = int.Parse(Console.ReadLine() ?? "");
+                    int index = int.Parse(Console.ReadLine() ?? "");
+                    _allGoals[index - 1].SetComplete(true);
                 }
             }
         }
@@ -143,39 +144,48 @@ class Program
         fileName = Console.ReadLine() ?? "";
 
         using (StreamWriter outputFile = new StreamWriter(fileName))
-        {
+        {   
+            int total_points = 0; 
+            outputFile.WriteLine($"{total_points}");
             foreach (Goal entry in _allGoals)
             {
-                int total_points = 0; ;
-                outputFile.WriteLine($"{total_points}@ \n{entry.SaveGoals()}");
+                
+                outputFile.WriteLine($"{entry.SaveGoals()}");
 
 
             }
         }
     }
-    // static void Load(){
-    //     string filename;
-    //     Console.Write("What is the filename? ");
-    //     filename = Console.ReadLine() ??""; 
-    //     string[] lines = System.IO.File.ReadAllLines(filename);
+    static void Load(){
+        string filename;
+        Console.Write("What is the filename? ");
+        filename = Console.ReadLine() ??""; 
+        string[] lines = System.IO.File.ReadAllLines(filename);
 
-    //     foreach (string line in lines)
-    //     {
-    //         string[] parts = line.Split("@");
-    //         Goal info = new Goal();
-    //         info._total_points = parts[0];
-    //         info._complete = parts[1];
-    //         info._goal = parts[2];
-    //         info._description = parts[3];
-    //         info._accoumplish = parts[4];
-    //         info._quantity = parts[5];
-    //         info._points = parts[6];
-    //         _allGoals.Add(info);
+        foreach (string line in lines)
+        {
+            string[] parts = line.Split("@");
+            string type = parts[0];
+            
+            if (type == "Simple") {
+                Simple goal = new Simple(Int32.Parse(parts[4]),parts[2], parts[3]);
+                goal.SetComplete(parts[1] == "X");
+                _allGoals.Add(goal);
+            }
+            else if (type == "Eternal"){
+                Eternal goal = new Eternal(Int32.Parse(parts[4]), parts[2], parts[3]); 
+                goal.SetComplete(parts[1] == "X");             
+            }
+            else if(type == "Checklist") {
+                Checklist goal = new Checklist(Int32.Parse(parts[6]), parts[2], parts[3],Int32.Parse(parts[5]), Int32.Parse(parts[7]), Int32.Parse(parts[4]));
+                goal.SetComplete(parts[1] == "X");
+
+            }
 
 
-    //     }
+        }
 
-    // }
+    }
     static void Animation() {
 
         List<string> animations = new List<string>();
@@ -243,6 +253,12 @@ class Goal {
     virtual public string DisplayGoalName() {
         return $"{_goal}";
     }
+    virtual public bool GetComplete() {
+        return _complete;
+    }
+    virtual public void SetComplete(bool complete) {
+        _complete = complete;
+    }
 }
 
 class Simple : Goal
@@ -263,12 +279,12 @@ class Simple : Goal
     }
     public override string SaveGoals()
     {
-        string checkmark = " ";
+        string checkmark = "O";
         if (_complete)
         {
             checkmark = "X";
         }
-        return $"[{checkmark}]@{_goal}@({_description})@{_points}";
+        return $"Simple@{checkmark}@{_goal}@({_description})@{_points}";
     }
     public override void RecordEvent()
     {
@@ -280,6 +296,12 @@ class Simple : Goal
     public override string DisplayGoalName()
     {
         return base.DisplayGoalName();
+    }
+
+    public override bool IsComplete()
+    {
+        _complete = false;
+        return _complete;
     }
 
 }
@@ -302,12 +324,12 @@ class Eternal : Goal
     }
     public override string SaveGoals()
     {   
-        string checkmark = " ";
+        string checkmark = "O";
         if (_complete)
         {
             checkmark = "X";
         }
-        return $"[{checkmark}] {_goal}@({_description})@{_points}";
+        return $"Eternal@{checkmark}@{_goal}@({_description})@{_points}";
     }
      public override string DisplayGoalName() {
         return base.DisplayGoalName();
@@ -319,11 +341,11 @@ class Checklist : Goal {
     private int _quantity;
     private int _bonus;
     private int _accomplished;
-    public Checklist(int points, string goal, string description, int quantity, int bonus) : base(points, goal, description)
+    public Checklist(int points, string goal, string description, int quantity, int bonus, int accomplished) : base(points, goal, description)
     {
         _quantity = quantity;
         _bonus = bonus;
-        _accomplished = 0;
+        _accomplished = accomplished;
         _total_points = 0;
 
     }
@@ -338,16 +360,21 @@ class Checklist : Goal {
     }
     public override string SaveGoals()
     {
-        string checkmark = " ";
+        string checkmark = "@";
         if (_complete)
         {
             checkmark = "X";
         }
-        return $"[{checkmark}]@{_goal}@({_description})@ ---Currently completed: {_accomplished}@/{_quantity}@{_points}@{_bonus}";
+        return $"Checklist@{checkmark}@{_goal}@({_description})@{_accomplished}@/{_quantity}@{_points}@{_bonus}";
     }
      public override string DisplayGoalName()
     {
         return base.DisplayGoalName();
+    }
+    public override bool IsComplete()
+    {
+        _complete = false;
+        return _complete;
     }
 }
 

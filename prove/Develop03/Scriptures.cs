@@ -16,7 +16,10 @@ class Scriptures {
         int listLength = _words.Count;
         Random random = new Random();
         int index = random.Next(0, listLength -1);
-        _words[index].Hide();
+        if (_words[index].Hide().Contains(index)){
+            continue;
+        }
+        
 
         
     }
