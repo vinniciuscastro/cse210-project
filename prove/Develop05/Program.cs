@@ -108,7 +108,7 @@ class Program
             }
             else if (prompt == 4)
             {
-
+                Load();
             }
             else if (prompt == 5)
             {
