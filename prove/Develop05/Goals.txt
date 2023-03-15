@@ -1,2 +1,3 @@
 0
-[ ]@Pet a dog@(I will make friends with someone that has a dog so I can pet the dog)@30
+Simple@O@Ir ao parque@(Vou me connectar com a natureza e ir ao parque)@30
+Eternal@O@Meditar@(Vou meditar por 10 minutos todos os dias)@30

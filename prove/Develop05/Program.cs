@@ -284,7 +284,7 @@ class Simple : Goal
         {
             checkmark = "X";
         }
-        return $"Simple@{checkmark}@{_goal}@({_description})@{_points}";
+        return $"Simple@{checkmark}@{_goal}@{_description}@{_points}";
     }
     public override void RecordEvent()
     {
@@ -329,7 +329,7 @@ class Eternal : Goal
         {
             checkmark = "X";
         }
-        return $"Eternal@{checkmark}@{_goal}@({_description})@{_points}";
+        return $"Eternal@{checkmark}@{_goal}@{_description}@{_points}";
     }
      public override string DisplayGoalName() {
         return base.DisplayGoalName();
@@ -365,7 +365,7 @@ class Checklist : Goal {
         {
             checkmark = "X";
         }
-        return $"Checklist@{checkmark}@{_goal}@({_description})@{_accomplished}@/{_quantity}@{_points}@{_bonus}";
+        return $"Checklist@{checkmark}@{_goal}@{_description}@{_accomplished}@{_quantity}@{_points}@{_bonus}";
     }
      public override string DisplayGoalName()
     {
