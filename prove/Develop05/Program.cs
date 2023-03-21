@@ -123,12 +123,13 @@ class Program
                     foreach (var goal in _allGoals)
                     {
                         Console.Write($"     {numb}. ");
-                        Console.WriteLine($"{goal.DisplayGoalName()}");
+                        Console.WriteLine(goal.Display());
                         numb++;
+                        
                     }
                     Console.Write("Which goal did you accomplish? ");
                     int index = int.Parse(Console.ReadLine() ?? "");
-                    _allGoals[index - 1].SetComplete(true);
+                    _allGoals[index - 1].RecordEvent();
                 }
             }
         }
@@ -242,7 +243,7 @@ class Goal {
     }
     virtual public void RecordEvent()
     {
-
+        _total_points += _points;
     }
 
     virtual public bool IsComplete()
@@ -288,9 +289,10 @@ class Simple : Goal
     }
     public override void RecordEvent()
     {
+        _complete = true; 
+        _total_points += _points;
         
-        Console.Write("Which goal did you accomplish? ");
-        int answer = int.Parse(Console.ReadLine() ?? "");
+
         
     }
     public override string DisplayGoalName()
@@ -331,8 +333,13 @@ class Eternal : Goal
         }
         return $"Eternal@{checkmark}@{_goal}@{_description}@{_points}";
     }
-     public override string DisplayGoalName() {
+    public override string DisplayGoalName() {
         return base.DisplayGoalName();
+    }
+    public override void RecordEvent()
+    {
+        base.RecordEvent();
+        _complete = false;
     }
 
 }
@@ -375,6 +382,18 @@ class Checklist : Goal {
     {
         _complete = false;
         return _complete;
+    }
+
+    public override void RecordEvent()
+    {
+        _total_points += _points;
+        if (_accomplished != _quantity) {
+            _accomplished += 1; 
+        }
+        else if (_accomplished == _quantity) {
+            _total_points += _bonus; 
+            Console.WriteLine($"You accomplished this checklist goal and earned {_bonus} points.");
+        }
     }
 }
 
