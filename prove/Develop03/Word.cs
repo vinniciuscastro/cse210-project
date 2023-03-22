@@ -18,11 +18,10 @@ class Word {
         for (int j = 0; j < textLength; j++) {
             underscores += "_";  
             }
-        _text = underscores;
-         
-           
+        _text = underscores;          
 
     }
+    
 
     public string GetDisplay() {
         return _text;     

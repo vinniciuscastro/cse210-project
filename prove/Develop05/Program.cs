@@ -129,7 +129,8 @@ class Program
                     }
                     Console.Write("Which goal did you accomplish? ");
                     int index = int.Parse(Console.ReadLine() ?? "");
-                    _allGoals[index - 1].RecordEvent();
+                    var points = _allGoals[index - 1].RecordEvent();
+                    total_points += points; 
                 }
             }
         }
@@ -175,11 +176,13 @@ class Program
             }
             else if (type == "Eternal"){
                 Eternal goal = new Eternal(Int32.Parse(parts[4]), parts[2], parts[3]); 
-                goal.SetComplete(parts[1] == "X");             
+                goal.SetComplete(parts[1] == "X");   
+                _allGoals.Add(goal);          
             }
             else if(type == "Checklist") {
                 Checklist goal = new Checklist(Int32.Parse(parts[6]), parts[2], parts[3],Int32.Parse(parts[5]), Int32.Parse(parts[7]), Int32.Parse(parts[4]));
                 goal.SetComplete(parts[1] == "X");
+                _allGoals.Add(goal);
 
             }
 
@@ -222,14 +225,14 @@ class Goal {
     protected string _goal;
     protected string _description;
     protected bool _complete = false;
-    protected int _total_points;
+    
 
     public Goal(int points, string goal, string description)
     {
         _points = points;
         _description = description;
         _goal = goal;
-        _total_points = 0;
+        
 
 
     }
@@ -241,10 +244,10 @@ class Goal {
     {
         return "";
     }
-    virtual public void RecordEvent()
-    {
-        _total_points += _points;
-    }
+    virtual public int RecordEvent(){
+        return _points;
+    }   
+   
 
     virtual public bool IsComplete()
     {
@@ -267,7 +270,7 @@ class Simple : Goal
 
     public Simple(int points, string goal, string description) : base(points, goal, description)
     {
-        _total_points = 0;
+       
     }
     public override string Display()
     {
@@ -287,10 +290,11 @@ class Simple : Goal
         }
         return $"Simple@{checkmark}@{_goal}@{_description}@{_points}";
     }
-    public override void RecordEvent()
+    public override int RecordEvent()
     {
         _complete = true; 
-        _total_points += _points;
+        Console.WriteLine($"You accomplished this Simple goal and earned {_points} points.");
+        return _points;
         
 
         
@@ -312,7 +316,7 @@ class Eternal : Goal
 {
     public Eternal(int points, string goal, string description) : base(points, goal, description)
     {
-        _total_points = 0;
+        
     }
     public override string Display()
     {
@@ -336,10 +340,12 @@ class Eternal : Goal
     public override string DisplayGoalName() {
         return base.DisplayGoalName();
     }
-    public override void RecordEvent()
+    public override int RecordEvent()
     {
         base.RecordEvent();
         _complete = false;
+        Console.WriteLine($"You accomplished this Eternal goal and earned {_points} points.");
+        return _points;
     }
 
 }
@@ -353,7 +359,7 @@ class Checklist : Goal {
         _quantity = quantity;
         _bonus = bonus;
         _accomplished = accomplished;
-        _total_points = 0;
+       
 
     }
     public override string Display()
@@ -367,7 +373,7 @@ class Checklist : Goal {
     }
     public override string SaveGoals()
     {
-        string checkmark = "@";
+        string checkmark = "O";
         if (_complete)
         {
             checkmark = "X";
@@ -384,15 +390,20 @@ class Checklist : Goal {
         return _complete;
     }
 
-    public override void RecordEvent()
+    public override int RecordEvent()
     {
-        _total_points += _points;
+        
         if (_accomplished != _quantity) {
-            _accomplished += 1; 
+            _accomplished += 1;
+            Console.WriteLine($"You accomplished this Checklist goal and earned {_points} points.");
+            return _points; 
         }
         else if (_accomplished == _quantity) {
-            _total_points += _bonus; 
-            Console.WriteLine($"You accomplished this checklist goal and earned {_bonus} points.");
+            Console.WriteLine($"You accomplished this Checklist goal and earned {_bonus} points.");
+            return _bonus;
+        }
+        else {
+            return 0; 
         }
     }
 }

@@ -15,18 +15,20 @@ class Scriptures {
     public void HideWords(int count) {
         int listLength = _words.Count;
         Random random = new Random();
-        int index = random.Next(0, listLength -1);
-        if (_words[index].Hide().Contains(index)){
-            continue;
+       
+        for(int i=0; i < count; i++) {
+            int index = random.Next(0, listLength -1);
+            _words[index].Hide();
+
         }
         
 
         
     }
 
-    // public bool IsCompletelyHidden() {
-
-    // }
+    public bool IsCompletelyHidden() {
+        // I just need to know how haven't eaten their breakfast
+    }
 
     public void Display() {
         // string word = " ";

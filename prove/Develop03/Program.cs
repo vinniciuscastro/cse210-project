@@ -32,7 +32,7 @@ class Program
             
             Console.Write("> ");
             input = Console.ReadLine() ??"";
-            scripture.HideWords(1); 
+            scripture.HideWords(3); 
             
         }
 
