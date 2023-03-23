@@ -12,16 +12,16 @@ class Program
 class Product {
     private string _product;
     private int _id;
-    private int _price;
+    private double _price;
     private int _quantity;
 
-    public Product(string product, int id, int price, int quantity) {
+    public Product(string product, int id, double price, int quantity) {
         _product = product;
         _id = id;
         _price = price;
         _quantity = quantity;
     } 
-    
+
 }
 
 class Address {
@@ -38,7 +38,7 @@ class Customer {
     Address address = new Address();
 }
 class Order {
-    Product p = new Product();
+    Product p = new Product("apple", 0021, 3.43, 5);
     Customer c = new Customer();
 
 }
