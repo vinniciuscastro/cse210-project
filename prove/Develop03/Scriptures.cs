@@ -28,6 +28,7 @@ class Scriptures {
 
     public bool IsCompletelyHidden() {
         // I just need to know how haven't eaten their breakfast
+        return true;
     }
 
     public void Display() {
