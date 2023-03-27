@@ -77,7 +77,7 @@ class Order {
     Product p2 = new Product("bread", 0011, 1.99, 9);
     Customer c2 = new Customer("Billie Eilish");
     Address a2 = new Address("Los Angeles","CA","Santa Monica", "United States");
-    Product p3 = new Product("Strawberry", 0011, 1.99, 9);
+    Product p3 = new Product("Strawberry", 0011, 1.99, 2);
     Customer c3 = new Customer("Tais Araujo");
     Address a3 = new Address("Rio de Janeiro","RJ","None", "Brazil");
 
@@ -97,6 +97,7 @@ class Order {
         Console.WriteLine($"{c2.DisplayCustomer()}\n{a2.DisplayAddress()}");
         Console.WriteLine();
         Console.WriteLine($"Order:\n{p2.DisplayProduct()}");
+        Console.WriteLine();
         Console.WriteLine("Customer:");
         Console.WriteLine($"{c3.DisplayCustomer()}\n{a3.DisplayAddress()}");
         Console.WriteLine();
