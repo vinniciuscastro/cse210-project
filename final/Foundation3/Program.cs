@@ -14,8 +14,11 @@ class Address {
     private string _province;
     private string _country;
 
-    public Address() {
-        
+    public Address(string city, string state, string province, string country) {
+        _city = city;
+        _state = state;
+        _province = province;
+        _country = country;
     
     }
 
