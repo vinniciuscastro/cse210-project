@@ -4,7 +4,20 @@ class Program
 {
     static void Main(string[] args)
     {
-        Console.WriteLine("Hello Foundation4 World!");
+        List<Exercise> activities = new List<Exercise>();
+
+        Running running = new Running("March 31st 2023",30, 4.8);
+        Bicycles cycling = new Bicycles("July 27th 2023", 180, 7.4);
+        Swimming swimming = new Swimming("April 6th 2023", 400, 500);
+
+        activities.Add(running);
+        activities.Add(cycling);
+        activities.Add(swimming);
+        Console.WriteLine("Summary of activities:");
+        Console.WriteLine();
+        foreach (Exercise e in activities){
+            Console.WriteLine(e.GetSummary());
+        }
     }
 }
 
@@ -50,9 +63,10 @@ class Running:Exercise {
         return _minutes / _distance;
     }
 
-    public override double GetDistance()
+
+    public override string GetSummary()
     {
-        return GetPace() * 50 / 1000;
+        return $"  > {_date} Running ({_minutes} min): Distance {Math.Round(_distance,1)} km, Speed {Math.Round(GetSpeed(),1)} kph, Pace {Math.Round(GetPace(),1)} per km";
     }
 
 }
@@ -73,9 +87,11 @@ class Bicycles:Exercise {
         return GetPace() * 50 / 1000;
     }
 
-    public override double GetSpeed()
+
+
+    public override string GetSummary()
     {
-        return 60 / GetPace();
+        return $"  > {_date} Cycling ({_minutes} min): Distance {Math.Round(GetDistance(),1)} km, Speed {Math.Round(_speed,1)} kph, Pace {Math.Round(GetPace(),1)} per km";
     }
 
 }
@@ -100,4 +116,10 @@ class Swimming:Exercise {
     {
         return (GetDistance() / _minutes) * 60;
     }
+
+    public override string GetSummary()
+    {
+        return $"  > {_date} Swimming ({_minutes} min): Distance {Math.Round(GetDistance(),1)} km, Speed {Math.Round(GetSpeed(),1)} kph, Pace {Math.Round(GetPace(),1)} per km";
+    }
+    
 }
