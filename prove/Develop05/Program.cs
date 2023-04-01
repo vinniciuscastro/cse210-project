@@ -393,13 +393,15 @@ class Checklist : Goal {
     public override int RecordEvent()
     {
         
-        if (_accomplished != _quantity) {
+        if (_accomplished != _quantity - 1) {
             _accomplished += 1;
             Console.WriteLine($"You accomplished this Checklist goal and earned {_points} points.");
             return _points; 
         }
-        else if (_accomplished == _quantity) {
-            Console.WriteLine($"You accomplished this Checklist goal and earned {_bonus} points.");
+        else if (_accomplished == _quantity - 1) {
+            _accomplished += 1;
+            _complete = true;
+            Console.WriteLine($"You accomplished this Checklist goal and earned {_bonus} the bonus points.");
             return _bonus;
         }
         else {

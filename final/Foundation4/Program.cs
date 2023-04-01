@@ -7,7 +7,7 @@ class Program
         List<Exercise> activities = new List<Exercise>();
 
         Running running = new Running("March 31st 2023",30, 4.8);
-        Bicycles cycling = new Bicycles("July 27th 2023", 180, 7.4);
+        Bicycles cycling = new Bicycles("July 27th 2023", 30, 9.6);
         Swimming swimming = new Swimming("April 6th 2023", 400, 500);
 
         activities.Add(running);
@@ -84,7 +84,7 @@ class Bicycles:Exercise {
     }
     public override double GetDistance()
     {
-        return GetPace() * 50 / 1000;
+        return _speed * _minutes / 60;
     }
 
 
